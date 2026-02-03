@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Section 8 - Overall Assessment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      line-height: 1.5;
+      color: #2D3748;
+      background: #F7FAFC;
+      padding-bottom: 80px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Section Header */
+    .section-header {
+      background: linear-gradient(135deg, #2B7A8A 0%, #1e5a66 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .section-header h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .section-header p {
+      font-size: 14px;
+      opacity: 0.95;
+    }
+
+    /* Instructions */
+    .instructions {
+      background: #F3F4F6;
+      border-left: 4px solid #2B7A8A;
+      padding: 15px 20px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: #374151;
+      line-height: 1.5;
+    }
+
+    /* Quick Summary */
+    .quick-summary {
+      background: white;
+      border: 2px solid #2B7A8A;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+
+    .quick-summary h2 {
+      color: #1F2937;
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .summary-item {
+      padding: 12px;
+      background: #F9FAFB;
+      border-radius: 6px;
+      border-left: 2px solid #2B7A8A;
+    }
+
+    .summary-label {
+      font-size: 13px;
+      color: #6B7280;
+      margin-bottom: 4px;
+    }
+
+    .summary-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1F2937;
+    }
+
+    /* Content Sections */
+    .content-section {
+      background: white;
+      border: 2px solid #2B7A8A;
+      border-radius: 8px;
+      padding: 25px;
+      margin-bottom: 20px;
+    }
+
+    .content-section h2 {
+      color: #1F2937;
+      font-size: 18px;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #F3F4F6;
+    }
+
+    .content-section h3 {
+      color: #374151;
+      font-size: 16px;
+      margin: 15px 0 10px 0;
+    }
+
+    .content-section p {
+      color: #1F2937;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .content-section ul {
+      margin: 0 0 15px 20px;
+      color: #1F2937;
+    }
+
+    .content-section li {
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .content-section strong {
+      color: #1F2937;
+    }
+
+    /* Workspace Divider */
+    .workspace-divider {
+      margin: 40px 0 30px 0;
+      padding: 25px;
+      background: #F0F9FF;
+      border-radius: 12px;
+      border: 2px solid #2B7A8A;
+    }
+
+    .workspace-divider h2 {
+      color: #1e5a66;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .workspace-divider p {
+      color: #1F2937;
+      font-size: 14px;
+    }
+
+    /* Analysis Cards */
+    .analysis-card {
+      background: #F0F9FF;
+      background: #F0F9FF;
+      border: 2px solid #2B7A8A;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .analysis-card.expanded {
+      border-color: #2B7A8A;
+    }
+
+    .analysis-header {
+      border-bottom: 2px solid #2B7A8A;
+      padding: 20px;
+      background: #F0F9FF;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s;
+    }
+
+    .analysis-header:hover {
+    
+    .analysis-header:focus {
+      outline: 3px solid #2B7A8A;
+      outline-offset: 2px;
+    }
+      background: #F0F9FF;
+    }
+
+    .analysis-header h3 {
+      color: #1F2937;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .expand-icon {
+      font-size: 24px;
+      color: #6B7280;
+      transition: transform 0.3s;
+    }
+
+    .analysis-card.expanded .expand-icon {
+      transform: rotate(180deg);
+    }
+
+    .analysis-body {
+      display: none;
+      padding: 20px;
+      background: #F0F9FF;
+    }
+
+    .analysis-card.expanded .analysis-body {
+      display: block;
+    }
+
+    .question-label {
+      font-weight: 700;
+      color: #1e5a66;
+      font-size: 14px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .question-hint {
+      font-size: 14px;
+      color: #6B7280;
+      margin-bottom: 8px;
+      font-style: italic;
+      line-height: 1.4;
+    }
+
+    .text-input {
+      width: 100%;
+      min-height: 150px;
+      padding: 15px;
+      border: 2px solid #D1D5DB;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      line-height: 1.5;
+      resize: vertical;
+      transition: border-color 0.3s;
+    }
+
+    .text-input:focus {
+      outline: 3px solid #2B7A8A;
+      outline-offset: 2px;
+      border-color: #2B7A8A;
+      background: white;
+    }
+
+    .word-count {
+      text-align: right;
+      margin-top: 5px;
+      font-size: 14px;
+      color: #6B7280;
+    }
+
+    /* Final Recommendation Box */
+    .final-recommendation {
+      background: #F0F9FF;
+      border: 2px solid #2B7A8A;
+      border-radius: 12px;
+      padding: 30px;
+      margin-top: 30px;
+    }
+
+    .final-recommendation h2 {
+      color: #1e5a66;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    .final-recommendation p {
+      color: #1F2937;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .final-recommendation ul {
+      margin: 12px 0 15px 25px;
+      color: #1F2937;
+    }
+
+    .final-recommendation li {
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    /* Sticky Footer */
+    .sticky-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-top: 3px solid #E5E7EB;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 -4px 6px rgba(0,0,0,0.1);
+      z-index: 900;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .save-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #6B7280;
+    }
+
+    .save-status.saved {
+      color: #10B981;
+    }
+
+    .total-word-count {
+      font-size: 14px;
+      color: #6B7280;
+    }
+
+    .total-word-count strong {
+      color: #2B7A8A;
+      font-size: 16px;
+    }
+
+    .section-progress {
+      font-size: 14px;
+      color: #6B7280;
+    }
+
+    .download-btn {
+      background: linear-gradient(135deg, #2B7A8A 0%, #1e5a66 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .download-btn:focus {
+      outline: 3px solid #2B7A8A;
+      outline-offset: 2px;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(43, 122, 138, 0.4);
+    }
+
+    /* Progress Dots */
+    .progress-dots {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin: 30px 0;
+    }
+
+    .progress-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #D1D5DB;
+      transition: all 0.3s;
+      cursor: pointer;
+      padding: 16px;
+      position: relative;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .progress-dot::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #D1D5DB;
+    }
+    
+    .progress-dot:hover::before {
+      background: #9CA3AF;
+      transform: translate(-50%, -50%) scale(1.3);
+    }
+
+    .progress-dot.active::before {
+      background: #2B7A8A;
+      transform: translate(-50%, -50%) scale(1.2);
+      box-shadow: 0 0 0 3px rgba(43, 122, 138, 0.3);
+    }
+    
+    .progress-dot.active:hover::before {
+      background: #1e5a66;
+      transform: translate(-50%, -50%) scale(1.3);
+    }
+    
+    .progress-dot:focus {
+      outline: 3px solid #2B7A8A;
+      outline-offset: 2px;
+    }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sticky-footer {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+      }
+
+      .footer-left {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+      }
+
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<main>
+
+<div class="container">
+  
+  <!-- Section Header -->
+  <div class="section-header">
+    <h1>Section 8: Overall Assessment</h1>
+    <p>Synthesize your findings and provide final recommendations</p>
+  </div>
+
+  <!-- Progress Dots -->
+  <nav aria-label="Section navigation" class="progress-dots">
+    <a href="section1_WORKING.html" class="progress-dot" aria-label="Section 1: Problem Definition & Rationale"></a>
+    <a href="section2_WORKING.html" class="progress-dot" aria-label="Section 2: Input Analysis"></a>
+    <a href="section3_WORKING.html" class="progress-dot" aria-label="Section 3: Stakeholder Analysis"></a>
+    <a href="section4_WORKING.html" class="progress-dot" aria-label="Section 4: Process Analysis"></a>
+    <a href="section5_WORKING.html" class="progress-dot" aria-label="Section 5: Output & Value Analysis"></a>
+    <a href="section6_WORKING.html" class="progress-dot" aria-label="Section 6: Risk Analysis"></a>
+    <a href="section7_WORKING.html" class="progress-dot" aria-label="Section 7: Technology & Integration"></a>
+    <a href="section8_WORKING.html" class="progress-dot active" aria-label="Section 8: Overall Assessment" aria-current="page"></a>
+  </nav>
+
+  <!-- Instructions -->
+  <div class="instructions">
+    <div><strong>How this works:</strong> This is your final section. Synthesize everything you've analyzed in Sections 1-7 and provide an overall assessment. Your work auto-saves as you type.</div>
+    <div style="margin-top: 8px;"><strong>Note:</strong> After completing this section, click "Download Word Doc" at the bottom to export your complete analysis.</div>
+  </div>
+
+  <!-- Quick Summary -->
+  <div class="quick-summary">
+    <h2><span aria-hidden="true">📋</span> What You've Analyzed So Far</h2>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="summary-label">Sections Complete</div>
+        <div class="summary-value">7 of 8</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-label">Analysis Areas</div>
+        <div class="summary-value">7 covered</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-label">Final Task</div>
+        <div class="summary-value">Synthesis</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-label">Format</div>
+        <div class="summary-value">Holistic view</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Review Guide -->
+  <div class="content-section">
+    <h2>🔄 Quick Review: What You've Analyzed</h2>
+    
+    <p>Before synthesizing, recall what you've examined:</p>
+
+    <ul>
+      <li><strong>Section 1:</strong> Problem definition and solution rationale</li>
+      <li><strong>Section 2:</strong> Cost estimates and implementation scope</li>
+      <li><strong>Section 3:</strong> Stakeholder identification and engagement</li>
+      <li><strong>Section 4:</strong> Process changes and workflow impacts</li>
+      <li><strong>Section 5:</strong> Expected outputs and value proposition</li>
+      <li><strong>Section 6:</strong> Risk identification and mitigation</li>
+      <li><strong>Section 7:</strong> Technical architecture and integration</li>
+    </ul>
+
+    <p style="margin-top: 15px;"><strong>Now it's time to:</strong> Pull it all together. What are the biggest gaps? What patterns emerged? What's your overall recommendation?</p>
+  </div>
+
+  <!-- Synthesis Framework -->
+  <div class="content-section">
+    <h2><span aria-hidden="true">🎯</span> Synthesis Framework</h2>
+    
+    <h3>Think About Patterns & Themes</h3>
+    <ul>
+      <li>What gaps appeared across multiple sections?</li>
+      <li>Are certain types of issues more prevalent (e.g., missing stakeholders, weak mitigation plans)?</li>
+      <li>Do the weaknesses cluster in particular areas (planning, execution, monitoring)?</li>
+      <li>What would have the biggest impact if addressed?</li>
+    </ul>
+
+    <h3>Consider Priority & Feasibility</h3>
+    <ul>
+      <li>Which recommendations are "must-fix" vs. "nice-to-have"?</li>
+      <li>What could be addressed quickly vs. requiring major rework?</li>
+      <li>Which gaps pose the greatest risk to project success?</li>
+      <li>What's realistic given their constraints (budget, timeline, team)?</li>
+    </ul>
+
+    <h3>Make It Actionable</h3>
+    <ul>
+      <li>Don't just say "needs more detail" - specify what details</li>
+      <li>Don't just identify problems - suggest solutions</li>
+      <li>Prioritize: What should they tackle first?</li>
+      <li>Be realistic: What can they actually accomplish?</li>
+    </ul>
+  </div>
+
+  <!-- Workspace Divider -->
+  <div class="workspace-divider">
+    <h2><span aria-hidden="true">✏️</span> Your Overall Assessment</h2>
+    <p>Synthesize your findings from all 7 sections and provide your final recommendations below.</p>
+  </div>
+
+  <!-- Analysis Cards -->
+  <div class="analysis-card" id="card-strengths">
+    <div class="analysis-header" onclick="toggleCard('strengths')" onkeypress="if(event.key=='Enter' || event.key==' ') toggleCard('strengths')" tabindex="0" role="button" aria-expanded="false">
+      <h3>
+        <span style="font-size: 24px; margin-right: 5px;" aria-hidden="true">✅</span>
+        What They Did Well
+      </h3>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="analysis-body">
+      <div>
+        <label class="question-label"><span aria-hidden="true">✏️</span> What Are the Strongest Aspects of Their Proposal?</label>
+        <div class="question-hint">Even critical analysis should acknowledge strengths. What did they get right? What's well thought-out? This provides context for your recommendations.</div>
+        <textarea 
+          class="text-input" 
+          id="input-strengths"
+          placeholder="Type your assessment of strengths here..."
+          oninput="updateWordCount('strengths'); autoSave();"
+        ></textarea>
+        <div class="word-count" id="count-strengths">0 words</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="analysis-card" id="card-critical-gaps">
+    <div class="analysis-header" onclick="toggleCard('critical-gaps')" onkeypress="if(event.key=='Enter' || event.key==' ') toggleCard('critical-gaps')" tabindex="0" role="button" aria-expanded="false">
+      <h3>
+        <span style="font-size: 24px; margin-right: 5px;" aria-hidden="true">🔴</span>
+        Critical Gaps & Weaknesses
+      </h3>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="analysis-body">
+      <div>
+        <label class="question-label"><span aria-hidden="true">✏️</span> What Are the Most Significant Gaps or Weaknesses?</label>
+        <div class="question-hint">Pull together the biggest issues from across all sections. What poses the greatest risk to success? What absolutely must be addressed? Prioritize and be specific.</div>
+        <textarea 
+          class="text-input" 
+          id="input-critical-gaps"
+          placeholder="Type your critical gaps analysis here..."
+          oninput="updateWordCount('critical-gaps'); autoSave();"
+        ></textarea>
+        <div class="word-count" id="count-critical-gaps">0 words</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="analysis-card" id="card-top-recommendations">
+    <div class="analysis-header" onclick="toggleCard('top-recommendations')" onkeypress="if(event.key=='Enter' || event.key==' ') toggleCard('top-recommendations')" tabindex="0" role="button" aria-expanded="false">
+      <h3>
+        <span style="font-size: 24px; margin-right: 5px;" aria-hidden="true">🎯</span>
+        Top 5 Recommendations
+      </h3>
+      <span class="expand-icon">▼</span>
+    </div>
+    <div class="analysis-body">
+      <div>
+        <label class="question-label"><span aria-hidden="true">✏️</span> What Are Your Top 5 Actionable Recommendations?</label>
+        <div class="question-hint">If they could only address 5 things, what should they be? Make them specific, actionable, and prioritized. Explain why each matters and what success looks like.</div>
+        <textarea 
+          class="text-input" 
+          id="input-top-recommendations"
+          placeholder="Type your top 5 recommendations here..."
+          oninput="updateWordCount('top-recommendations'); autoSave();"
+        ></textarea>
+        <div class="word-count" id="count-top-recommendations">0 words</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Final Recommendation -->
+  <div class="final-recommendation">
+    <h2>🏁 Final Recommendation: Go/No-Go/Conditional</h2>
+    <p>Based on your complete analysis, what's your overall recommendation? Choose one and explain your reasoning:</p>
+    <ul>
+      <li><strong>GO:</strong> Proceed with the project as proposed (with minor tweaks)</li>
+      <li><strong>CONDITIONAL GO:</strong> Proceed only if specific critical gaps are addressed first</li>
+      <li><strong>NO-GO:</strong> The proposal has fundamental flaws that make it too risky to proceed</li>
+      <li><strong>REVISE & RESUBMIT:</strong> Significant rework needed before making a decision</li>
+    </ul>
+    <textarea 
+      class="text-input" 
+      id="input-final-recommendation"
+      placeholder="Type your final go/no-go recommendation and reasoning here..."
+      oninput="updateWordCount('final-recommendation'); autoSave();"
+    ></textarea>
+    <div class="word-count" id="count-final-recommendation">0 words</div>
+  </div>
+
+  <!-- Navigation -->
+  <div style="display: flex; justify-content: space-between; margin: 30px 0; padding: 20px; background: white; border: 2px solid #2B7A8A; border-radius: 8px;">
+    <a href="section7_WORKING.html" style="padding: 12px 20px; background: linear-gradient(135deg, #F3F4F6 0%, #E5E7EB 100%); color: #1F2937; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 14px; transition: all 0.3s;">← Previous</a>
+    <a href="landing_page_WORKING.html" style="padding: 12px 20px; background: white; color: #2B7A8A; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 14px; border: 2px solid #2B7A8A; transition: all 0.3s;">⌂ Home</a>
+    <a href="landing_page_WORKING.html" style="padding: 12px 20px; background: linear-gradient(135deg, #2B7A8A 0%, #1e5a66 100%); color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 14px; transition: all 0.3s;">Next →</a>
+  </div>
+  
+  <!-- Progress Dots -->
+  <nav aria-label="Section navigation" class="progress-dots">
+    <a href="section1_WORKING.html" class="progress-dot" aria-label="Section 1: Problem Definition & Rationale"></a>
+    <a href="section2_WORKING.html" class="progress-dot" aria-label="Section 2: Input Analysis"></a>
+    <a href="section3_WORKING.html" class="progress-dot" aria-label="Section 3: Stakeholder Analysis"></a>
+    <a href="section4_WORKING.html" class="progress-dot" aria-label="Section 4: Process Analysis"></a>
+    <a href="section5_WORKING.html" class="progress-dot" aria-label="Section 5: Output & Value Analysis"></a>
+    <a href="section6_WORKING.html" class="progress-dot" aria-label="Section 6: Risk Analysis"></a>
+    <a href="section7_WORKING.html" class="progress-dot" aria-label="Section 7: Technology & Integration"></a>
+    <a href="section8_WORKING.html" class="progress-dot active" aria-label="Section 8: Overall Assessment" aria-current="page"></a>
+  </nav>
+
+</div>
+
+</main>
+
+<!-- Sticky Footer -->
+<div class="sticky-footer">
+  <div class="footer-left">
+    <div class="save-status saved" id="save-status" role="status" aria-live="polite" aria-atomic="true">
+      <span aria-hidden="true">💾</span>
+      <span id="save-text">All changes saved</span>
+    </div>
+    <div class="total-word-count" role="status" aria-live="polite">
+      Total: <strong id="total-words">0</strong> words
+    </div>
+    <div class="section-progress" role="status" aria-live="polite">
+      Section 8: <strong id="section-progress">0/4</strong> questions complete
+    </div>
+  </div>
+  <button class="download-btn" onclick="downloadWord()">
+    <span aria-hidden="true">📄</span> Download Word Doc
+  </button>
+</div>
+
+<script>
+  function toggleCard(id) {
+    const card = document.getElementById('card-' + id);
+    card.classList.toggle('expanded');
+    
+    if (card.classList.contains('expanded')) {
+      setTimeout(() => {
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+    }
+  }
+
+  function updateWordCount(id) {
+    const input = document.getElementById('input-' + id);
+    const counter = document.getElementById('count-' + id);
+    const text = input.value.trim();
+    const words = text === '' ? 0 : text.split(/\s+/).length;
+    counter.textContent = words + ' word' + (words !== 1 ? 's' : '');
+    
+    updateTotalWordCount();
+    updateSectionProgress();
+  }
+
+  function updateTotalWordCount() {
+    const allInputs = document.querySelectorAll('.text-input');
+    let total = 0;
+    allInputs.forEach(input => {
+      const text = input.value.trim();
+      if (text !== '') {
+        total += text.split(/\s+/).length;
+      }
+    });
+    document.getElementById('total-words').textContent = total;
+  }
+
+  function updateSectionProgress() {
+    const questions = ['strengths', 'critical-gaps', 'top-recommendations', 'final-recommendation'];
+    let completed = 0;
+    
+    questions.forEach(q => {
+      const input = document.getElementById('input-' + q).value.trim();
+      if (input !== '') {
+        completed++;
+      }
+    });
+    
+    document.getElementById('section-progress').textContent = completed + '/4';
+  }
+
+  let saveTimeout;
+  function autoSave() {
+    clearTimeout(saveTimeout);
+    
+    const saveStatus = document.getElementById('save-status');
+    const saveText = document.getElementById('save-text');
+    saveStatus.classList.remove('saved');
+    saveText.textContent = 'Saving...';
+    
+    saveTimeout = setTimeout(() => {
+      const data = {
+        strengths: document.getElementById('input-strengths').value,
+        criticalGaps: document.getElementById('input-critical-gaps').value,
+        topRecommendations: document.getElementById('input-top-recommendations').value,
+        finalRecommendation: document.getElementById('input-final-recommendation').value
+      };
+      
+      localStorage.setItem('medpredict_section8', JSON.stringify(data));
+      
+      saveStatus.classList.add('saved');
+      saveText.textContent = 'All changes saved';
+    }, 1000);
+  }
+
+  function loadSavedData() {
+    const saved = localStorage.getItem('medpredict_section8');
+    if (saved) {
+      const data = JSON.parse(saved);
+      document.getElementById('input-strengths').value = data.strengths || '';
+      document.getElementById('input-critical-gaps').value = data.criticalGaps || '';
+      document.getElementById('input-top-recommendations').value = data.topRecommendations || '';
+      document.getElementById('input-final-recommendation').value = data.finalRecommendation || '';
+      
+      updateWordCount('strengths');
+      updateWordCount('critical-gaps');
+      updateWordCount('top-recommendations');
+      updateWordCount('final-recommendation');
+    }
+  }
+
+  function downloadWord() {
+    alert('Download functionality will be implemented. This will generate a Word document with all your analysis from all 8 sections.');
+  }
+
+  window.addEventListener('load', function() {
+    loadSavedData();
+  });
+</script>
+
+</body>
+</html>
