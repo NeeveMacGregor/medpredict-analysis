@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedPredict Analysis Enhancement - Welcome</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      line-height: 1.5;
+      color: #2D3748;
+      background: #F7FAFC;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #2B7A8A 0%, #1e5a66 100%);
+      color: white;
+      padding: 40px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .header .subtitle {
+      font-size: 16px;
+      opacity: 0.95;
+    }
+
+    /* Content Sections */
+    .content-section {
+      background: white;
+      border: 2px solid #2B7A8A;
+      border-radius: 8px;
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+
+    .content-section h2 {
+      color: #1F2937;
+      font-size: 22px;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #F3F4F6;
+    }
+
+    .content-section p {
+      color: #1F2937;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .content-section ul {
+      margin: 0 0 15px 20px;
+      color: #1F2937;
+    }
+
+    .content-section li {
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .content-section strong {
+      color: #1F2937;
+    }
+
+    .content-section ol {
+      margin: 0 0 15px 20px;
+      color: #1F2937;
+    }
+
+    /* Section List */
+    .section-list {
+      display: grid;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .section-item {
+      background: #F9FAFB;
+      border: 2px solid #2B7A8A;
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .section-item:hover {
+      border-color: #2B7A8A;
+      transform: translateX(5px);
+      box-shadow: 0 2px 8px rgba(43, 122, 138, 0.2);
+    }
+    
+    .section-item:focus {
+      outline: 3px solid #2B7A8A;
+      outline-offset: 2px;
+      border-color: #2B7A8A;
+    }
+
+    .section-info {
+      flex: 1;
+    }
+
+    .section-number {
+      font-size: 18px;
+      font-weight: 700;
+      color: #2B7A8A;
+      margin-bottom: 5px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1F2937;
+      margin-bottom: 5px;
+    }
+
+    .section-desc {
+      font-size: 14px;
+      color: #6B7280;
+    }
+
+    .section-status {
+      font-size: 13px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .section-status::before {
+      font-size: 14px;
+    }
+
+    .status-complete {
+      background: #D1FAE5;
+      color: #065F46;
+    }
+    
+    .status-complete::before {
+      content: '✓';
+    }
+
+    .status-inprogress {
+      background: #DBEAFE;
+      color: #1E40AF;
+    }
+    
+    .status-inprogress::before {
+      content: '⟳';
+    }
+    
+    .status-notstarted {
+      background: #F3F4F6;
+      color: #6B7280;
+    }
+    
+    .status-notstarted::before {
+      content: '○';
+    }
+
+    /* Important Notes Box */
+    .notes-box {
+      background: linear-gradient(135deg, #FFF1F2 0%, #FFE4E6 100%);
+      border: 3px solid #F43F5E;
+      border-radius: 8px;
+      padding: 25px;
+      margin-top: 25px;
+    }
+
+    .notes-box h2 {
+      color: #881337;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    .notes-box ul {
+      margin: 0 0 0 20px;
+      color: #881337;
+    }
+
+    .notes-box li {
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    
+    .notes-box p {
+      color: #881337;
+    }
+    
+    .notes-box strong {
+      color: #881337;
+    }
+
+    /* Progress Dots */
+    .progress-dots {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin: 30px 0;
+    }
+
+    .progress-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #D1D5DB;
+      transition: all 0.3s;
+      cursor: pointer;
+      padding: 16px;
+      position: relative;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .progress-dot::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #D1D5DB;
+    }
+    
+    .progress-dot:hover::before {
+      background: #9CA3AF;
+      transform: translate(-50%, -50%) scale(1.3);
+    }
+
+    .progress-dot.active::before {
+      background: #2B7A8A;
+      transform: translate(-50%, -50%) scale(1.2);
+      box-shadow: 0 0 0 3px rgba(43, 122, 138, 0.3);
+    }
+    
+    .progress-dot.active:hover::before {
+      background: #1e5a66;
+      transform: translate(-50%, -50%) scale(1.3);
+    }
+    
+    .progress-dot:focus {
+      outline: 3px solid #2B7A8A;
+      outline-offset: 2px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+
+      .header h1 {
+        font-size: 24px;
+      }
+
+      .section-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<main>
+<div class="container">
+  
+  <!-- Header -->
+  <div class="header">
+    <h1>MedPredict Analysis Enhancement</h1>
+    <p class="subtitle">Critical Analysis & Enhancement Recommendations</p>
+  </div>
+
+  <!-- Progress Dots - Top -->
+  <nav aria-label="Section navigation" class="progress-dots" style="margin: 25px 0 30px 0;">
+    <a href="section1_WORKING.html" class="progress-dot" aria-label="Section 1: Problem Definition & Rationale"></a>
+    <a href="section2_WORKING.html" class="progress-dot" aria-label="Section 2: Input Analysis"></a>
+    <a href="section3_WORKING.html" class="progress-dot" aria-label="Section 3: Stakeholder Analysis"></a>
+    <a href="section4_WORKING.html" class="progress-dot" aria-label="Section 4: Process Analysis"></a>
+    <a href="section5_WORKING.html" class="progress-dot" aria-label="Section 5: Output & Value Analysis"></a>
+    <a href="section6_WORKING.html" class="progress-dot" aria-label="Section 6: Risk Analysis"></a>
+    <a href="section7_WORKING.html" class="progress-dot" aria-label="Section 7: Technology & Integration"></a>
+    <a href="section8_WORKING.html" class="progress-dot" aria-label="Section 8: Overall Assessment"></a>
+  </nav>
+
+  <!-- Getting Started -->
+  <div class="content-section getting-started-section" style="background: #F0F9FF; border: 2px solid #2B7A8A;">
+    <h2 style="color: #1F2937;"><span aria-hidden="true">🚀</span> Getting Started</h2>
+    <ol style="color: #1F2937; margin-left: 20px; line-height: 1.8;">
+      <li><strong>Review the MedPredict proposal</strong> as you work through each section</li>
+      <li><strong>Work through all 8 sections</strong> (start with Section 1 or jump around)</li>
+      <li><strong>Download your Word document</strong> when all sections show "Complete"</li>
+      <li><strong>Upload the .doc</strong> to the Canvas assignment page</li>
+    </ol>
+    <p style="color: #1F2937; font-size: 14px; margin-top: 12px; font-style: italic;">
+      <span aria-hidden="true">💡</span> Your work auto-saves as you type. Come back anytime to pick up where you left off.
+    </p>
+  </div>
+
+  <!-- Assignment Overview -->
+  <div class="content-section">
+    <h2><span aria-hidden="true">📋</span> Your Assignment</h2>
+    <p>The Pharmacy Team has proposed <strong>MedPredict</strong>, a decision support system to reduce medication waste through better demand forecasting. You'll critically analyze their proposal and provide enhancement recommendations.</p>
+    
+    <p><strong>What you'll do:</strong></p>
+    <ul>
+      <li><strong>Identify gaps and weaknesses:</strong> Look for missing information, incomplete analysis, overlooked stakeholders, and unaddressed risks</li>
+      <li><strong>Provide specific recommendations:</strong> Don't just point out problems; suggest concrete improvements</li>
+      <li><strong>Think like a consultant:</strong> Focus on constructive criticism that improves the proposal, not praise for what's already good</li>
+    </ul>
+  </div>
+
+  <!-- How It Works -->
+  <div class="content-section">
+    <h2><span aria-hidden="true">📝</span> How This Analysis Guide Works</h2>
+    <ul>
+      <li><strong>8 sections total:</strong> Each covers a different aspect of the proposal (Problem, Costs, Stakeholders, Process, Outputs, Risks, Technology, Overall Assessment)</li>
+      <li><strong>Auto-save:</strong> Your work saves automatically to your browser as you type. Use the same browser throughout; don't switch browsers or devices</li>
+      <li><strong>Progress tracking:</strong> Each section shows "Not Started," "X% Complete," or "Complete." The dots at the top and bottom light up when sections are finished</li>
+      <li><strong>Be specific:</strong> Instead of "needs more detail," write exactly what's missing and why it matters (e.g., "should specify which EHR system for integration")</li>
+      <li><strong>Download once complete:</strong> When all sections show "Complete," click the download button to generate your Word document, then upload to the Canvas assignment page</li>
+    </ul>
+  </div>
+
+  <!-- The 8 Sections -->
+  <div class="content-section">
+    <h2><span aria-hidden="true">📚</span> The 8 Sections You'll Analyze</h2>
+    
+    <nav aria-label="Analysis sections" class="section-list">
+      
+      <a href="section1_WORKING.html" class="section-item">
+        <div class="section-info">
+          <div class="section-number">Section 1</div>
+          <div class="section-title">Problem Definition & Rationale</div>
+          <div class="section-desc">Evaluate how they defined the problem and justified the solution</div>
+        </div>
+        <div class="section-status status-notstarted" id="status-section1">Not Started</div>
+      </a>
+
+      <a href="section2_WORKING.html" class="section-item">
+        <div class="section-info">
+          <div class="section-number">Section 2</div>
+          <div class="section-title">Input Analysis (Costs & Scope)</div>
+          <div class="section-desc">Review their cost estimates and implementation timeline</div>
+        </div>
+        <div class="section-status status-notstarted" id="status-section2">Not Started</div>
+      </a>
+
+      <a href="section3_WORKING.html" class="section-item">
+        <div class="section-info">
+          <div class="section-number">Section 3</div>
+          <div class="section-title">Stakeholder Analysis</div>
+          <div class="section-desc">Assess who they identified and who might be missing</div>
+        </div>
+        <div class="section-status status-notstarted" id="status-section3">Not Started</div>
+      </a>
+
+      <a href="section4_WORKING.html" class="section-item">
+        <div class="section-info">
+          <div class="section-number">Section 4</div>
+          <div class="section-title">Process Analysis</div>
+          <div class="section-desc">Examine workflows and process changes</div>
+        </div>
+        <div class="section-status status-notstarted" id="status-section4">Not Started</div>
+      </a>
+
+      <a href="section5_WORKING.html" class="section-item">
+        <div class="section-info">
+          <div class="section-number">Section 5</div>
+          <div class="section-title">Output & Value Analysis</div>
+          <div class="section-desc">Evaluate expected benefits and outcomes</div>
+        </div>
+        <div class="section-status status-notstarted" id="status-section5">Not Started</div>
+      </a>
+
+      <a href="section6_WORKING.html" class="section-item">
+        <div class="section-info">
+          <div class="section-number">Section 6</div>
+          <div class="section-title">Risk Analysis</div>
+          <div class="section-desc">Identify risks and mitigation strategies</div>
+        </div>
+        <div class="section-status status-notstarted" id="status-section6">Not Started</div>
+      </a>
+
+      <a href="section7_WORKING.html" class="section-item">
+        <div class="section-info">
+          <div class="section-number">Section 7</div>
+          <div class="section-title">Technology & Integration</div>
+          <div class="section-desc">Review technical architecture and integration</div>
+        </div>
+        <div class="section-status status-notstarted" id="status-section7">Not Started</div>
+      </a>
+
+      <a href="section8_WORKING.html" class="section-item">
+        <div class="section-info">
+          <div class="section-number">Section 8</div>
+          <div class="section-title">Overall Assessment</div>
+          <div class="section-desc">Synthesize findings and final recommendations</div>
+        </div>
+        <div class="section-status status-notstarted" id="status-section8">Not Started</div>
+      </a>
+
+    </nav>
+  </div>
+
+  <!-- Important Notes -->
+  <div class="notes-box">
+    <h2><span aria-hidden="true">⚠️</span> Important Notes</h2>
+    <ul>
+      <li><strong>Use the same browser:</strong> Don't switch browsers or use Incognito mode; your work won't transfer</li>
+      <li><strong>Be specific:</strong> Write exactly what's missing (e.g., "missing integration details for Epic EHR") instead of vague feedback</li>
+      <li><strong>Complete all sections:</strong> Check that all 8 sections show "Complete" before downloading</li>
+      <li><strong>Review before submitting:</strong> Open the Word document and verify all responses are there before uploading to Canvas</li>
+      <li><strong>Keep a backup:</strong> Save a copy to Google Drive or email it to yourself after downloading</li>
+    </ul>
+    
+    <p style="margin-top: 15px;"><strong>Troubleshooting:</strong></p>
+    <ul style="margin-top: 8px;">
+      <li><strong>Work disappeared?</strong> Check you're in the same browser (not Incognito mode)</li>
+      <li><strong>Download not working?</strong> Complete at least one section first</li>
+      <li><strong>Progress not updating?</strong> Refresh the landing page</li>
+    </ul>
+  </div>
+
+  <!-- Download Section -->
+  <div class="content-section" style="text-align: center; background: #F0F9FF; border: 2px solid #2B7A8A; margin-top: 30px;">
+    <h2 style="color: #1F2937;"><span aria-hidden="true">📥</span> Download Your Completed Analysis</h2>
+    <p style="color: #1F2937; margin-bottom: 20px;">
+      Once all 8 sections show "Complete," click below to download your responses as a Word document. Then upload the .doc to the Canvas assignment page.
+    </p>
+    
+    <button onclick="downloadWord()" style="
+      background: linear-gradient(135deg, #2B7A8A 0%, #1e5a66 100%);
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px rgba(43, 122, 138, 0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.1)'" onfocus="this.style.outline='3px solid #2B7A8A'; this.style.outlineOffset='2px'" onblur="this.style.outline='none'">
+      <span aria-hidden="true">📄</span> Download Word Document
+    </button>
+    
+    <p style="color: #1F2937; margin-top: 15px; font-size: 13px;">
+      Your work is saved in your browser. You can edit and download again before the deadline if needed.
+    </p>
+  </div>
+
+  <!-- Progress Dots -->
+  <div class="progress-dots">
+    <div class="progress-dot"></div>
+    <div class="progress-dot"></div>
+    <div class="progress-dot"></div>
+    <div class="progress-dot"></div>
+    <div class="progress-dot"></div>
+    <div class="progress-dot"></div>
+    <div class="progress-dot"></div>
+    <div class="progress-dot"></div>
+  </div>
+</main>
+
+<script>
+// Calculate completion percentage for a section
+function getSectionCompletion(sectionId, fields) {
+  const savedData = localStorage.getItem('medpredict_' + sectionId);
+  if (!savedData) return 0;
+  
+  try {
+    const data = JSON.parse(savedData);
+    let completedFields = 0;
+    fields.forEach(field => {
+      if (data[field] && data[field].trim().length > 0) {
+        completedFields++;
+      }
+    });
+    return Math.round((completedFields / fields.length) * 100);
+  } catch (e) {
+    return 0;
+  }
+}
+
+// Update section status displays and progress dots
+function updateProgress() {
+  const sections = [
+    { id: 'section1', fields: ['problemCritique', 'solutionCritique', 'additionalObservations'] },
+    { id: 'section2', fields: ['costReview', 'timelineReview', 'riskCosts', 'additionalObservations'] },
+    { id: 'section3', fields: ['missingStakeholders', 'stakeholderDetail', 'strategicAlignment', 'additionalObservations'] },
+    { id: 'section4', fields: ['processGaps', 'changeManagement', 'processMetrics', 'additionalObservations'] },
+    { id: 'section5', fields: ['outputGaps', 'roiCritique', 'metricsGaps', 'additionalObservations'] },
+    { id: 'section6', fields: ['missingRisks', 'mitigationGaps', 'riskPrioritization', 'additionalObservations'] },
+    { id: 'section7', fields: ['architectureGaps', 'integrationConcerns', 'technologyChoices', 'additionalObservations'] },
+    { id: 'section8', fields: ['strengths', 'criticalGaps', 'topRecommendations', 'finalRecommendation'] }
+  ];
+  
+  const progressDots = document.querySelectorAll('.progress-dot');
+  
+  sections.forEach((section, index) => {
+    const completion = getSectionCompletion(section.id, section.fields);
+    const statusElement = document.getElementById('status-' + section.id);
+    
+    if (statusElement) {
+      if (completion === 0) {
+        statusElement.textContent = 'Not Started';
+        statusElement.className = 'section-status status-notstarted';
+      } else if (completion === 100) {
+        statusElement.textContent = 'Complete';
+        statusElement.className = 'section-status status-complete';
+      } else {
+        statusElement.textContent = completion + '% Complete';
+        statusElement.className = 'section-status status-inprogress';
+      }
+    }
+    
+    // Update progress dot
+    if (progressDots[index]) {
+      if (completion === 100) {
+        progressDots[index].classList.add('active');
+      } else {
+        progressDots[index].classList.remove('active');
+      }
+    }
+  });
+}
+
+// Run on page load
+updateProgress();
+
+// Download Word document with all responses from all 8 sections
+function downloadWord() {
+  const sections = [
+    { id: 'section1', name: 'Problem Definition & Rationale', fields: ['problemCritique', 'solutionCritique', 'additionalObservations'] },
+    { id: 'section2', name: 'Input Analysis (Costs & Scope)', fields: ['costReview', 'timelineReview', 'riskCosts', 'additionalObservations'] },
+    { id: 'section3', name: 'Stakeholder Analysis', fields: ['missingStakeholders', 'stakeholderDetail', 'strategicAlignment', 'additionalObservations'] },
+    { id: 'section4', name: 'Process Analysis', fields: ['processGaps', 'changeManagement', 'processMetrics', 'additionalObservations'] },
+    { id: 'section5', name: 'Output & Value Analysis', fields: ['outputGaps', 'roiCritique', 'metricsGaps', 'additionalObservations'] },
+    { id: 'section6', name: 'Risk Analysis', fields: ['missingRisks', 'mitigationGaps', 'riskPrioritization', 'additionalObservations'] },
+    { id: 'section7', name: 'Technology & Integration', fields: ['architectureGaps', 'integrationConcerns', 'technologyChoices', 'additionalObservations'] },
+    { id: 'section8', name: 'Overall Assessment', fields: ['strengths', 'criticalGaps', 'topRecommendations', 'finalRecommendation'] }
+  ];
+  let htmlContent = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>MedPredict Analysis Enhancement</title><style>body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; line-height: 1.5; } @page { margin: 1in; } h1 { font-size: 18pt; font-weight: bold; margin-top: 0; margin-bottom: 12pt; } h2 { font-size: 14pt; font-weight: bold; margin-top: 18pt; margin-bottom: 10pt; color: #2B7A8A; } h3 { font-size: 12pt; font-weight: bold; margin-top: 12pt; margin-bottom: 8pt; font-style: italic; color: #4B5563; } p { margin: 6pt 0; } .response { margin-left: 20pt; margin-bottom: 12pt; white-space: pre-wrap; } hr { border: none; border-top: 2px solid #E5E7EB; margin: 24pt 0; }</style></head><body><h1>MedPredict Analysis Enhancement</h1><p><strong>Student Name:</strong> _____________________________</p><p><strong>Date:</strong> ' + new Date().toLocaleDateString() + '</p><hr>';
+  let hasContent = false;
+  sections.forEach((section, sectionIndex) => {
+    htmlContent += '<h2>Section ' + (sectionIndex + 1) + ': ' + section.name + '</h2>';
+    const savedData = localStorage.getItem('medpredict_' + section.id);
+    let data = {};
+    if (savedData) { try { data = JSON.parse(savedData); } catch (e) { console.error('Error parsing section ' + section.id); } }
+    section.fields.forEach(field => {
+      const fieldName = field.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+      const content = data[field] || '[No response provided]';
+      if (data[field] && data[field].trim() !== '') { hasContent = true; }
+      htmlContent += '<h3>' + fieldName + '</h3><div class="response">' + content + '</div>';
+    });
+    if (sectionIndex < sections.length - 1) { htmlContent += '<hr>'; }
+  });
+  htmlContent += '</body></html>';
+  if (!hasContent) { alert('No responses found! Please complete at least one section before downloading.'); return; }
+  const blob = new Blob(['\ufeff', htmlContent], { type: 'application/msword' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'MedPredict_Analysis_Enhancement.doc';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+  alert('Your Word document is downloading! Upload it to the Canvas assignment when ready.');
+}
+</script>
+
+</body>
+</html>
